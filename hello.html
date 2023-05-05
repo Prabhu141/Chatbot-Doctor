@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>convForm - example</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="dist/jquery.convform.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="demo.css">
+</head>
+<body>
+	<section id="demo">
+	    <div class="vertical-align">
+	        <div class="container">
+	            <div class="row">
+	                <div class="col-sm-6 col-sm-offset-3 col-xs-offset-0">
+	                    <div class="card no-border">
+	                        <div id="chat" class="conv-form-wrapper">
+	                            <form action="" method="GET" class="hidden">
+	                                <select data-conv-question="Hello! How can I help you?">
+	                                    <option value="yes"> Appointment</option>
+	                                </select>
+									<select data-conv-question=" Please selects the doctors to proceed">
+											<option type="button" data-callback="HAMZA" id="click-button" value="HAMZA AZIZ">"HAMZA AZIZ" </option>
+											<option value="CONNIE" data-callback="CONNIE">CONNIE DELOS REYES</option>
+											<option value="KATHRYN" data-callback="KATHRYN">KATHRYN BYCURA</option>
+											<option value="HOWARD" data-callback="HOWARD">HOWARD HAMAT</option>
+											<option value="GURU" data-callback="GURU">GURU N. REDDY</option>
+											<option value="MOHAMED" data-callback="MOHAMED">MOHAMED MAHMOUD</option>
+											<option value="LAURA" data-callback="LAURA">LAURA PETERKIN</option>
+									</select>
+	                            </form>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+	<script type="text/javascript" src="jquery-1.12.3.min.js"></script>
+	<script type="text/javascript" src="dist/autosize.min.js"></script>
+	<script type="text/javascript" src="dist/jquery.convform.js"></script>
+
+	<script>
+        var hiddenText = '<span class="hidden">secret</span>';
+        var message = $('<div class="message from">'+answerText.replace(/secret/g, hiddenText)+'</div>');
+
+		
+		function HAMZA(stateWrapper, ready) {
+			window.open("https://healow.com/apps/provider/hamza-aziz-2419370");
+			ready();
+		}
+		function CONNIE(stateWrapper, ready) {
+			window.open("https://healow.com/apps/provider/connie-delosreyes-1424184");
+			ready();
+		}
+		function KATHRYN(stateWrapper, ready) {
+			window.open("https://healow.com/apps/provider/kathryn-bycura-2108938");
+			ready();
+		}
+		function HOWARD(stateWrapper, ready) {
+			window.open("https://healow.com/apps/provider/howard-hamat-164920");
+			ready();
+		}
+		function GURU(stateWrapper, ready) {
+			window.open("https://healow.com/apps/provider/gurunath-reddy-164919");
+			ready();
+		}
+		function MOHAMED(stateWrapper, ready) {
+			window.open("https://healow.com/apps/provider/mohamed-mahmoud-2419372");
+			ready();
+		}
+		function LAURA(stateWrapper, ready) {
+			window.open("https://healow.com/apps/provider/laura-peterkin-164923 ");
+			ready();
+		}
+		
+		var rollbackTo = false;
+		var originalState = false;
+		function storeState(stateWrapper, ready) {
+			rollbackTo = stateWrapper.current;
+			console.log("storeState called: ",rollbackTo);
+			ready();
+		}
+		function rollback(stateWrapper, ready) {
+			console.log("rollback called: ", rollbackTo, originalState);
+			console.log("answers at the time of user input: ", stateWrapper.answers);
+			if(rollbackTo!=false) {
+				if(originalState==false) {
+					originalState = stateWrapper.current.next;
+						console.log('stored original state');
+				}
+				stateWrapper.current.next = rollbackTo;
+				console.log('changed current.next to rollbackTo');
+			}
+			ready();
+		}
+		function restore(stateWrapper, ready) {
+			if(originalState != false) {
+				stateWrapper.current.next = originalState;
+				console.log('changed current.next to originalState');
+			}
+			ready();
+		}
+	</script>
+	<script>
+		jQuery(function($){
+			convForm = $('#chat').convform({selectInputStyle: 'disable'});
+			console.log(convForm);
+		});
+	</script>
+
+</body>
+</html>
